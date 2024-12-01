@@ -29,6 +29,6 @@ namespace API_Practice1.Models
         public virtual Admin MasterAdmin { get; set; }
 
         [InverseProperty("MasterAdmin")]
-        public List<Admin>? ManagedAdmins { get; set; }
+        public virtual List<Admin>? ManagedAdmins { get; set; }
     }
 }
