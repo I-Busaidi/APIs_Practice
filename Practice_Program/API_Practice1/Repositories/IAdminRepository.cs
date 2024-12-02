@@ -4,11 +4,10 @@ namespace API_Practice1.Repositories
 {
     public interface IAdminRepository
     {
-        void Add(Admin admin);
+        int Add(Admin admin);
         void Delete(int id);
         IEnumerable<Admin> GetAll();
         Admin GetById(int id);
-        IEnumerable<Admin> GetByName(string name);
         void Update(int id, Admin newAdmin);
     }
 }

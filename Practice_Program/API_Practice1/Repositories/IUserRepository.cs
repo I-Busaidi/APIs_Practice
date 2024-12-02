@@ -8,7 +8,6 @@ namespace API_Practice1.Repositories
         void Delete(int id);
         IEnumerable<User> GetAll();
         User GetById(int id);
-        IEnumerable<User> GetByName(string name);
         void Update(int id, User newUser);
     }
 }

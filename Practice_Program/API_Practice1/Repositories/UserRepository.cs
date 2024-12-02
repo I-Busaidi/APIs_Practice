@@ -22,11 +22,6 @@ namespace API_Practice1.Repositories
             return _context.Users.Include(u => u.Borrows).FirstOrDefault(u => u.UserId == id);
         }
 
-        public IEnumerable<User> GetByName(string name)
-        {
-            return _context.Users.Include(u => u.Borrows).Where(u => u.FName.Contains(name) || u.LName.Contains(name) || name.Contains(u.FName) || name.Contains(u.LName));
-        }
-
         public void Add(User user)
         {
             _context.Users.Add(user);

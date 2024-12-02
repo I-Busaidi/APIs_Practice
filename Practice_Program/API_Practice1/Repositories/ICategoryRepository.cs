@@ -8,7 +8,6 @@ namespace API_Practice1.Repositories
         void Delete(int id);
         IEnumerable<Category> GetAll();
         Category GetById(int id);
-        Category GetByName(string name);
         void Update(int id, Category NewCategory);
     }
 }

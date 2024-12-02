@@ -22,11 +22,6 @@ namespace API_Practice1.Repositories
             return _context.Categories.Include(c => c.Books).FirstOrDefault(c => c.CatId == id);
         }
 
-        public Category GetByName(string name)
-        {
-            return _context.Categories.Include(c => c.Books).FirstOrDefault(c => c.CatName == name);
-        }
-
         public void Add(Category category)
         {
             _context.Categories.Add(category);

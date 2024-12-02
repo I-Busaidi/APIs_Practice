@@ -22,15 +22,12 @@ namespace API_Practice1.Repositories
             return _context.Books.Include(b => b.Borrows).FirstOrDefault(b => b.BookId == id);
         }
 
-        public Book GetByName(string name)
-        {
-            return _context.Books.Include(b => b.Borrows).FirstOrDefault(b => b.BookName == name);
-        }
-
-        public void Add(Book book)
+        public string Add(Book book)
         {
             _context.Books.Add(book);
             _context.SaveChanges();
+
+            return book.BookName;
         }
 
         public void Update(int id, Book newBook)

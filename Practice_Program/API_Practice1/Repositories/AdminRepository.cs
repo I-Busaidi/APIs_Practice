@@ -21,15 +21,11 @@ namespace API_Practice1.Repositories
             return _context.Admins.FirstOrDefault(a => a.AdminId == id);
         }
 
-        public IEnumerable<Admin> GetByName(string name)
-        {
-            return _context.Admins.Where(a => a.AdminFname.Contains(name) || a.AdminLname.Contains(name) || name.Contains(a.AdminFname) || name.Contains(a.AdminLname));
-        }
-
-        public void Add(Admin admin)
+        public int Add(Admin admin)
         {
             _context.Admins.Add(admin);
             _context.SaveChanges();
+            return admin.AdminId;
         }
 
         public void Delete(int id)
