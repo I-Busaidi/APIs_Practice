@@ -70,5 +70,54 @@ namespace API_Practice1.Services
 
             return _bookRepository.Add(book) + " Added Successfully.";
         }
+
+        public void UpdateBook(int id, Book book)
+        {
+            var existingBook = _bookRepository.GetById(id);
+            if (existingBook == null)
+            {
+                throw new KeyNotFoundException("Book not found.");
+            }
+
+            if (string.IsNullOrWhiteSpace(book.BookName))
+            {
+                throw new ArgumentException("Book name is required.");
+            }
+
+            if (string.IsNullOrWhiteSpace(book.AuthorName))
+            {
+                throw new ArgumentException("Author name is required.");
+            }
+
+            if (book.BorrowPeriod <= 0)
+            {
+                throw new ArgumentException("Allowed borrowing period must be greater than 0");
+            }
+
+            if (book.CopyPrice <= 0)
+            {
+                throw new ArgumentException("Copy price must be greater than 0");
+            }
+
+            if (book.CatId == null || book.CatId <= 0)
+            {
+                throw new ArgumentException("Category ID must be entered.");
+            }
+
+            book.BookId = existingBook.BookId;
+            _bookRepository.Update(book.BookId, book);
+        }
+
+        public void BorrowBook(int id)
+        {
+            var book = GetBookById(id);
+
+            if (book.TotalCopies > book.BorrowedCopies)
+            {
+                book.BorrowedCopies++;
+            }
+
+            _bookRepository.Update(id, book);
+        }
     }
 }
