@@ -16,11 +16,11 @@ namespace API_Practice1.Models
         [Required]
         public DateTime ReturnDate { get; set; }
 
-        public DateTime? ActualReturnDate { get; set; }
+        public DateTime? ActualReturnDate { get; set; } = null;
 
         public bool IsReturned { get; set; } = false;
 
-        public int? Rating { get; set; }
+        public int? Rating { get; set; } = null;
 
         [ForeignKey("User")]
         public int UserId { get; set; }

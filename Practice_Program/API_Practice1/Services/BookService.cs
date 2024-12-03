@@ -3,10 +3,11 @@ using API_Practice1.Repositories;
 
 namespace API_Practice1.Services
 {
-    public class BookService
+    public class BookService : IBookService
     {
         private readonly IBookRepository _bookRepository;
-        public BookService(IBookRepository bookRepository) 
+        private readonly ICategoryService _categoryService;
+        public BookService(IBookRepository bookRepository)
         {
             _bookRepository = bookRepository;
         }
@@ -67,7 +68,7 @@ namespace API_Practice1.Services
             {
                 throw new ArgumentException("Category ID must be entered.");
             }
-
+            _categoryService.IncrementCategoryBookNumber(book.CatId);
             return _bookRepository.Add(book) + " Added Successfully.";
         }
 
@@ -108,6 +109,22 @@ namespace API_Practice1.Services
             _bookRepository.Update(book.BookId, book);
         }
 
+        public void RemoveBook(int id)
+        {
+            var book = _bookRepository.GetById(id);
+            if (book == null)
+            {
+                throw new KeyNotFoundException("Book not found.");
+            }
+
+            if (book.BorrowedCopies > 0)
+            {
+                throw new ArgumentException("Book is currently borrowed.");
+            }
+            _categoryService.DecrementCategoryBookNumber(book.CatId);
+            _bookRepository.Delete(book.BookId);
+        }
+
         public void BorrowBook(int id)
         {
             var book = GetBookById(id);
@@ -115,6 +132,18 @@ namespace API_Practice1.Services
             if (book.TotalCopies > book.BorrowedCopies)
             {
                 book.BorrowedCopies++;
+            }
+
+            _bookRepository.Update(id, book);
+        }
+
+        public void ReturnBook(int id)
+        {
+            var book = GetBookById(id);
+
+            if (book.BorrowedCopies > 0)
+            {
+                book.BorrowedCopies--;
             }
 
             _bookRepository.Update(id, book);
