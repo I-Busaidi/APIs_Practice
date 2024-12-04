@@ -13,5 +13,6 @@ namespace API_Practice1.Services
         void UpdateAdminInfo(int id, Admin admin);
         void UpdateAdminName(int id, string fname, string? lname);
         void UpdateAdminPasscode(int id, string passcode);
+        void DeleteAdmin(int id);
     }
 }

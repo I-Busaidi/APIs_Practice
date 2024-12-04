@@ -197,5 +197,15 @@ namespace API_Practice1.Services
             admin.MasterAdminId = sAdmin.AdminId;
             _adminRepository.Update(id, admin);
         }
+
+        public void DeleteAdmin(int id)
+        {
+            var admin = _adminRepository.GetById(id);
+            if (admin == null)
+            {
+                throw new KeyNotFoundException("Admin not found.");
+            }
+            _adminRepository.Delete(id);
+        }
     }
 }

@@ -140,5 +140,19 @@ namespace API_Practice1.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteAdmin(int id)
+        {
+            try
+            {
+                _adminService.DeleteAdmin(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
