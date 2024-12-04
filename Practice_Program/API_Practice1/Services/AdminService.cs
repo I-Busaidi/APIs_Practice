@@ -16,7 +16,9 @@ namespace API_Practice1.Services
 
         public List<Admin> GetAllAdmins()
         {
-            var admins = _adminRepository.GetAll().ToList();
+            var admins = _adminRepository.GetAll()
+                .OrderBy(a => a.AdminFname)
+                .ToList();
             if (admins == null || admins.Count == 0)
             {
                 throw new InvalidOperationException("No admins found.");
@@ -41,10 +43,11 @@ namespace API_Practice1.Services
                 throw new Exception("Search term entered is null.");
             }
             var admins = _adminRepository.GetAll()
-                .Where(a => a.AdminFname.Contains(name)
-                || a.AdminFname.Contains(name)
-                || name.Contains(a.AdminFname)
-                || name.Contains(a.AdminLname))
+                .Where(a => a.AdminFname.ToLower().Contains(name.ToLower())
+                || a.AdminFname.ToLower().Contains(name.ToLower())
+                || name.ToLower().Contains(a.AdminFname.ToLower())
+                || name.ToLower().Contains(a.AdminLname.ToLower()))
+                .OrderBy(a => a.AdminFname)
                 .ToList();
 
             if (admins == null || admins.Count == 0)

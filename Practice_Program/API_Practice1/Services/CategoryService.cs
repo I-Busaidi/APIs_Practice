@@ -13,7 +13,9 @@ namespace API_Practice1.Services
 
         public List<Category> GetAllCategories()
         {
-            var categories = _categoryRepository.GetAll().ToList();
+            var categories = _categoryRepository.GetAll()
+                .OrderBy(c => c.CatName)
+                .ToList();
             if (categories == null || categories.Count == 0)
             {
                 throw new InvalidOperationException("No categories found.");

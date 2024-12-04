@@ -14,7 +14,7 @@ namespace API_Practice1.Services
 
         public List<User> GetAllUsers()
         {
-            var users = _userRepository.GetAll().ToList();
+            var users = _userRepository.GetAll().OrderBy(u=>u.FName).ToList();
             if (users == null || users.Count == 0)
             {
                 throw new InvalidOperationException("No users found.");
@@ -25,10 +25,11 @@ namespace API_Practice1.Services
         public List<User> GetUsersByName(string name)
         {
             var users = _userRepository.GetAll()
-                .Where(u => u.FName.Contains(name)
-                || u.LName.Contains(name)
-                || name.Contains(u.FName)
-                || name.Contains(u.LName))
+                .Where(u => u.FName.ToLower().Contains(name.ToLower())
+                || u.LName.ToLower().Contains(name.ToLower())
+                || name.ToLower().Contains(u.FName.ToLower())
+                || name.ToLower().Contains(u.LName.ToLower()))
+                .OrderBy(u => u.FName)
                 .ToList();
             if (users == null || users.Count == 0)
             {

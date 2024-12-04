@@ -14,7 +14,7 @@ namespace API_Practice1.Services
 
         public List<Book> GetAllBooks()
         {
-            var books = _bookRepository.GetAll().ToList();
+            var books = _bookRepository.GetAll().OrderBy(b => b.BookName).ToList();
             if (books == null || books.Count == 0)
             {
                 throw new InvalidOperationException("No books found.");
@@ -34,7 +34,10 @@ namespace API_Practice1.Services
 
         public List<Book> GetBookByName(string name)
         {
-            var books = _bookRepository.GetAll().Where(b => b.BookName == name).ToList();
+            var books = _bookRepository.GetAll()
+                .Where(b => b.BookName.ToLower().Contains(name.ToLower()))
+                .OrderBy(b => b.BookName)
+                .ToList();
             if (books == null || books.Count == 0)
             {
                 throw new ArgumentException("Book not found.");
