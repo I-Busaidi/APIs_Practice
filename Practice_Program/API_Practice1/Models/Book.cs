@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace API_Practice1.Models
 {
@@ -26,7 +27,11 @@ namespace API_Practice1.Models
         [Required]
         [ForeignKey("Category")]
         public int CatId { get; set; }
+
+        [JsonIgnore]
         public virtual Category Category { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Borrow>? Borrows { get; set; }
     }
 }

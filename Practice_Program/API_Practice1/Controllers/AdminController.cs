@@ -1,6 +1,8 @@
 ﻿using API_Practice1.Models;
 using API_Practice1.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace API_Practice1.Controllers
 {
@@ -58,11 +60,18 @@ namespace API_Practice1.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddAdmin([FromBody] Admin admin)
+        public IActionResult AddAdmin(string fname, string? lname, string email, string passcode, int? mAdminId)
         {
             try
             {
-                int newAdminId = _adminService.AddAdmin(admin);
+                int newAdminId = _adminService.AddAdmin(new Admin
+                {
+                    AdminFname = fname,
+                    AdminLname = lname,
+                    AdminEmail = email,
+                    AdminPasscode = passcode,
+                    MasterAdminId = mAdminId
+                });
                 return Created(string.Empty, newAdminId);
             }
             catch (Exception ex) 
@@ -72,11 +81,18 @@ namespace API_Practice1.Controllers
         }
 
         [HttpPut("UpdateAdmin/{id}")]
-        public IActionResult UpdateAdminInfo(int id, [FromBody] Admin admin)
+        public IActionResult UpdateAdminInfo(int id, string fname, string? lname, string email, string passcode, int? mAdminId)
         {
             try
             {
-                _adminService.UpdateAdminInfo(id, admin);
+                _adminService.UpdateAdminInfo(id, new Admin
+                {
+                    AdminFname=fname,
+                    AdminLname=lname,
+                    AdminEmail=email,
+                    AdminPasscode=passcode,
+                    MasterAdminId=mAdminId
+                });
                 return NoContent();
             }
             catch (Exception ex)
@@ -100,7 +116,7 @@ namespace API_Practice1.Controllers
         }
 
         [HttpPatch("{id}/EditName")]
-        public IActionResult UpdateAdminName(int id, [FromBody] string fname, [FromBody] string? lname)
+        public IActionResult UpdateAdminName(int id, [FromBody] string fname, string? lname)
         {
             try
             {

@@ -57,11 +57,14 @@ namespace API_Practice1.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddCategory([FromBody] Category category)
+        public IActionResult AddCategory(string categoryName)
         {
             try
             {
-                _categoryService.AddCategory(category);
+                _categoryService.AddCategory(new Category
+                {
+                    CatName = categoryName
+                });
                 return Created();
             }
             catch (Exception ex)
@@ -71,11 +74,14 @@ namespace API_Practice1.Controllers
         }
 
         [HttpPut("{id}/UpdateCategory")]
-        public IActionResult UpdateCategory(int id, [FromBody] Category category)
+        public IActionResult UpdateCategory(int id, string name)
         {
             try
             {
-                _categoryService.UpdateCategory(id, category);
+                _categoryService.UpdateCategory(id, new Category
+                {
+                    CatName=name
+                });
                 return NoContent();
             }
             catch (Exception ex)

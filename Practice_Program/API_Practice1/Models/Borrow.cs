@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace API_Practice1.Models
 {
@@ -24,10 +25,14 @@ namespace API_Practice1.Models
 
         [ForeignKey("User")]
         public int UserId { get; set; }
+
+        [JsonIgnore]
         public virtual User User { get; set; }
 
         [ForeignKey("Book")]
         public int BookId { get; set; }
+
+        [JsonIgnore]
         public virtual Book Book { get; set; }
     }
 }

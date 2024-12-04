@@ -57,11 +57,18 @@ namespace API_Practice1.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUser([FromBody] User user)
+        public IActionResult AddUser(string fname, string? lname, string? gender, string email, string password)
         {
             try
             {
-                _userService.AddUser(user);
+                _userService.AddUser(new User
+                {
+                    FName = fname,
+                    LName = lname,
+                    Gender = gender,
+                    Email = email,
+                    Passcode = password
+                });
                 return Created();
             }
             catch (Exception ex)
@@ -71,11 +78,18 @@ namespace API_Practice1.Controllers
         }
 
         [HttpPut("{id}/UpdateUser")]
-        public IActionResult UpdateUser(int id, [FromBody] User user)
+        public IActionResult UpdateUser(int id, string fname, string? lname, string? gender, string email, string password)
         {
             try
             {
-                _userService.UpdateUser(id, user);
+                _userService.UpdateUser(id, new User
+                {
+                    FName = fname,
+                    LName = lname,
+                    Gender = gender,
+                    Email = email,
+                    Passcode = password
+                });
                 return NoContent();
             }
             catch (Exception ex)

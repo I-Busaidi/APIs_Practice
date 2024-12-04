@@ -57,11 +57,19 @@ namespace API_Practice1.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddBook([FromBody] Book book)
+        public IActionResult AddBook(string bName, string aName, int borrowPeriod, int totalCopies, int categoryId, decimal copyPrice)
         {
             try
             {
-                string newBookName = _bookService.AddBook(book);
+                string newBookName = _bookService.AddBook(new Book
+                {
+                    BookName = bName,
+                    AuthorName = aName,
+                    BorrowPeriod = borrowPeriod,
+                    TotalCopies = totalCopies,
+                    CatId = categoryId,
+                    CopyPrice = copyPrice
+                });
                 return Created(string.Empty, newBookName);
             }
             catch (Exception ex)
@@ -71,11 +79,18 @@ namespace API_Practice1.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateBook(int id, [FromBody] Book book)
+        public IActionResult UpdateBook(int id, string bName, string aName, int borrowPeriod, int totalCopies, decimal copyPrice)
         {
             try
             {
-                _bookService.UpdateBook(id, book);
+                _bookService.UpdateBook(id, new Book
+                {
+                    BookName = bName,
+                    AuthorName = aName,
+                    BorrowPeriod = borrowPeriod,
+                    TotalCopies = totalCopies,
+                    CopyPrice = copyPrice
+                });
                 return NoContent();
             }
             catch (Exception ex)

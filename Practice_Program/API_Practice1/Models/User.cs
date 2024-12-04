@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace API_Practice1.Models
 {
@@ -26,6 +27,7 @@ namespace API_Practice1.Models
         [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$")]
         public string Passcode { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Borrow>? Borrows { get; set; }
     }
 }

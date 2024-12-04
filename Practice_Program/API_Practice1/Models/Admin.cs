@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace API_Practice1.Models
 {
@@ -26,9 +27,12 @@ namespace API_Practice1.Models
 
         [ForeignKey("MasterAdmin")]
         public int? MasterAdminId { get; set; }
+
+        [JsonIgnore]
         public virtual Admin MasterAdmin { get; set; }
 
         [InverseProperty("MasterAdmin")]
+        [JsonIgnore]
         public virtual List<Admin>? ManagedAdmins { get; set; }
     }
 }
