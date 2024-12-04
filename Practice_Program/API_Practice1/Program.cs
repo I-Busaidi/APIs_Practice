@@ -1,4 +1,6 @@
 
+using API_Practice1.Repositories;
+using API_Practice1.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace API_Practice1
@@ -13,6 +15,17 @@ namespace API_Practice1
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
+            builder.Services.AddScoped<IBorrowRepository, BorrowRepository>();
+
+            builder.Services.AddScoped<IAdminService, AdminService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IBookService, BookService>();
+            builder.Services.AddScoped<IBorrowService, BorrowService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
