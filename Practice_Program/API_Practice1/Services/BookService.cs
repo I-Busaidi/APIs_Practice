@@ -7,9 +7,10 @@ namespace API_Practice1.Services
     {
         private readonly IBookRepository _bookRepository;
         private readonly ICategoryService _categoryService;
-        public BookService(IBookRepository bookRepository)
+        public BookService(IBookRepository bookRepository, ICategoryService categoryService)
         {
             _bookRepository = bookRepository;
+            _categoryService = categoryService;
         }
 
         public List<Book> GetAllBooks()
@@ -35,7 +36,8 @@ namespace API_Practice1.Services
         public List<Book> GetBookByName(string name)
         {
             var books = _bookRepository.GetAll()
-                .Where(b => b.BookName.ToLower().Contains(name.ToLower()))
+                .Where(b => b.BookName.ToLower().Contains(name.ToLower()) 
+                || b.AuthorName.ToLower().Contains(name.ToLower()))
                 .OrderBy(b => b.BookName)
                 .ToList();
             if (books == null || books.Count == 0)
@@ -67,7 +69,7 @@ namespace API_Practice1.Services
                 throw new ArgumentException("Copy price must be greater than 0");
             }
 
-            if (book.CatId == null || book.CatId <= 0)
+            if (book.CatId <= 0)
             {
                 throw new ArgumentException("Category ID must be entered.");
             }

@@ -38,7 +38,7 @@ namespace API_Practice1.Services
 
         public void AddBorrow(int uId, int bId)
         {
-            var book = _bookService.GetBookById(uId);
+            var book = _bookService.GetBookById(bId);
             if (book.BorrowedCopies >= book.TotalCopies)
             {
                 throw new InvalidOperationException("Book is currently unavailable.");

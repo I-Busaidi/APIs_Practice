@@ -58,11 +58,11 @@ namespace API_Practice1.Controllers
         }
 
         [HttpPatch("{bookId}, {rating}/ReturnBook")]
-        public IActionResult ReturnBook(int bookId, int rating)
+        public IActionResult ReturnBook(int borrowId, int rating)
         {
             try
             {
-                _borrowService.ReturnBorrowedBook(bookId, rating);
+                _borrowService.ReturnBorrowedBook(borrowId, rating);
                 return NoContent();
             }
             catch (Exception ex)
